@@ -1,5 +1,6 @@
 package com.bankDatabase;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,7 +43,7 @@ public class SmartBank_Console {
             }
 
             case 2:{
-                System.out.println("Banking Features ");
+                bankingFeatures();
                 break;
             }
 
@@ -194,5 +195,100 @@ public class SmartBank_Console {
 
    }
 
+   // Banking Features Method
+    public static void bankingFeatures(){
+
+        // Variable Selection
+        int Option;
+        double balance = 0;
+
+        // Used For Accepting User Input
+        Scanner accept = new Scanner(System.in);
+
+        // Using do while loop until the user Exits
+       do{
+
+           // The Banking Features UI
+           System.out.println("--------------------------------------------------");
+           System.out.println(" ***            BANKING FEATURES              *** ");
+           System.out.println("__________________________________________________");
+           System.out.println();
+
+           // Making The User Choose A Valid Input
+           System.out.println("1. Deposit ");
+           System.out.println("2. Withdraw ");
+           System.out.println("3. Check Balance ");
+           System.out.println("4. View Transaction History ");
+           System.out.println("5. Transfer Between Accounts ");
+           System.out.println("6. Exit ");
+           System.out.println();
+           System.out.println(" Please Select An Option ");
+           Option = accept.nextInt();
+           accept.nextLine();
+
+           // Using Switch Case To Determine Each User Input
+           switch (Option){
+               case 1:{
+
+                   // Deposit Variable
+                   double deposit,add;
+
+
+                   // Deposit UI
+                   System.out.println("------------------------------------------------");
+                   System.out.println("                  DEPOSIT MENU                  ");
+                   System.out.println("________________________________________________");
+                   System.out.println();
+
+                   // Accepting User Input
+                   System.out.println("Enter Amount To Deposit ");
+                   deposit = accept.nextDouble();
+
+                   // Adding to balance
+                    add =  deposit + balance;
+
+                   // Declaring Deposit Status
+                   System.out.println("GH$ " + deposit + " Has Been Deposited Successfully ");
+                   System.out.println(" Balance = GH$ " + add);
+                   System.out.println();
+                   break;
+
+
+               }
+
+               case 2:{
+                   // Withdraw Menu variable
+                   double withdraw;
+
+                   // Withdraw Menu UI
+                   System.out.println("------------------------------------------------- ");
+                   System.out.println("                   WITHDRAW MENU                  ");
+                   System.out.println("__________________________________________________");
+                   System.out.println();
+
+                   // Accepting User Withdraw Menu
+                   System.out.println(" Please Enter Amount To Withdraw ");
+                   withdraw = accept.nextDouble();
+
+                   // Using If Statements To Determine Correct Cases
+                   if ( withdraw < balance ){
+                       System.out.println(" Less");
+
+                   }
+                   else if ( withdraw > balance ) {
+                       System.out.println(" Greater Than ");
+
+                   }
+                   else {
+                       System.out.println(" breaks even ");
+                   }
+
+               }
+
+
+           }
+
+       }while(Option != 6 );
+    }
 
 }
