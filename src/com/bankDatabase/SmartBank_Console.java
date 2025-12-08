@@ -229,66 +229,118 @@ public class SmartBank_Console {
            // Using Switch Case To Determine Each User Input
            switch (Option){
                case 1:{
-
-                   // Deposit Variable
-                   double deposit,add;
-
-
-                   // Deposit UI
-                   System.out.println("------------------------------------------------");
-                   System.out.println("                  DEPOSIT MENU                  ");
-                   System.out.println("________________________________________________");
-                   System.out.println();
-
-                   // Accepting User Input
-                   System.out.println("Enter Amount To Deposit ");
-                   deposit = accept.nextDouble();
-
-                   // Adding to balance
-                    add =  deposit + balance;
-
-                   // Declaring Deposit Status
-                   System.out.println("GH$ " + deposit + " Has Been Deposited Successfully ");
-                   System.out.println(" Balance = GH$ " + add);
-                   System.out.println();
+                   balance = deposit(balance);
                    break;
-
-
                }
 
                case 2:{
-                   // Withdraw Menu variable
-                   double withdraw;
-
-                   // Withdraw Menu UI
-                   System.out.println("------------------------------------------------- ");
-                   System.out.println("                   WITHDRAW MENU                  ");
-                   System.out.println("__________________________________________________");
-                   System.out.println();
-
-                   // Accepting User Withdraw Menu
-                   System.out.println(" Please Enter Amount To Withdraw ");
-                   withdraw = accept.nextDouble();
-
-                   // Using If Statements To Determine Correct Cases
-                   if ( withdraw < balance ){
-                       System.out.println(" Less");
-
-                   }
-                   else if ( withdraw > balance ) {
-                       System.out.println(" Greater Than ");
-
-                   }
-                   else {
-                       System.out.println(" breaks even ");
-                   }
-
+                  balance = withdraw(balance);
+                  break;
                }
 
+               case 3:{
+                   balance = checkBalance(balance);
+                   break;
+               }
 
            }
 
        }while(Option != 6 );
     }
+
+    // The Deposit Method For The Banking Features
+    public static double deposit( double balance ){
+
+        // Deposit Variable
+        double deposit;
+        double add;
+
+        // Accepting User Input
+        Scanner accept = new Scanner(System.in);
+
+        // Deposit UI
+        System.out.println("------------------------------------------------");
+        System.out.println("                  DEPOSIT MENU                  ");
+        System.out.println("________________________________________________");
+        System.out.println();
+
+        // Accepting User Input
+        System.out.println("Enter Amount To Deposit ");
+        deposit = accept.nextDouble();
+
+        // Adding to balance
+       add = deposit + balance;
+
+
+       // Declaring Deposit Status
+        System.out.println("GH$ " + deposit + " Has Been Deposited Successfully ");
+        System.out.println("Balance = GH$ " + add);
+        System.out.println();
+
+        return add;
+
+
+
+    }
+
+
+    // The Withdrawal  Method For The Banking Features
+    public static double withdraw( double balance ){
+
+        // Withdraw Menu variable
+        double withdraw;
+        double total = 0;
+
+        // Accepting User Input
+        Scanner accept = new Scanner(System.in);
+
+        // Withdraw Menu UI
+        System.out.println("------------------------------------------------- ");
+        System.out.println("                   WITHDRAW MENU                  ");
+        System.out.println("__________________________________________________");
+        System.out.println();
+
+        // Accepting User Withdraw Amount
+        System.out.println(" Please Enter Amount To Withdraw ");
+        withdraw = accept.nextDouble();
+
+        // Using If Statements To Determine Correct Cases
+        if ( withdraw > balance ){
+            System.out.println(" Insufficient Funds !!! ");
+            System.out.println(" Please Deposit To Be Able To Withdraw ");
+            System.out.println();
+
+        }
+        else if ( withdraw < balance ) {
+
+            total = balance - withdraw;
+            System.out.println(" The Amount Of GH$ " + withdraw + " Has Been Completed....");
+            System.out.println(" Withdraw done Successfully... ");
+            System.out.println(" Balance is GH$ " + total);
+
+        }
+        else {
+            System.out.println(" Please Enter A Valid Amount ");
+            System.out.println(" Entered Amount Is Invalid ");
+            System.out.println();
+        }
+
+        return total;
+    }
+
+
+    // Method For Check Balance For Banking Features
+    public static double checkBalance(double balance){
+        System.out.println("---------------------------------------------");
+        System.out.println("                    BALANCE                  ");
+        System.out.println("_____________________________________________");
+        System.out.println();
+        System.out.println(" Your Balance Is GH$ "+ balance);
+
+        return balance;
+    }
+
+
+
 
 }
