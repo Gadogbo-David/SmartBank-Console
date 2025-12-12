@@ -1,6 +1,5 @@
 package com.bankDatabase;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +12,9 @@ public class SmartBank_Console {
 
         // Using ArrayList As The Storage for now
         ArrayList<User> dataBank = new ArrayList<>();
+
+        // Transaction History Storage
+        ArrayList<transHistory> storage = new ArrayList<>();
 
         // Used To Accept User Input
         Scanner input = new Scanner(System.in);
@@ -43,7 +45,7 @@ public class SmartBank_Console {
             }
 
             case 2:{
-                bankingFeatures();
+                bankingFeatures(storage);
                 break;
             }
 
@@ -58,7 +60,7 @@ public class SmartBank_Console {
             }
 
             case 5:{
-                System.out.println(" Thank You For Visiting SmartBank Console ");
+                System.out.println("Thank You For Visiting SmartBank Console ");
                 break;
             }
 
@@ -196,7 +198,7 @@ public class SmartBank_Console {
    }
 
    // Banking Features Method
-    public static void bankingFeatures(){
+    public static void bankingFeatures( ArrayList<transHistory> storage){
 
         // Variable Selection
         int Option;
@@ -229,18 +231,37 @@ public class SmartBank_Console {
            // Using Switch Case To Determine Each User Input
            switch (Option){
                case 1:{
-                   balance = deposit(balance);
+                   balance = deposit(balance,storage);
+                   System.out.println();
                    break;
                }
 
                case 2:{
-                  balance = withdraw(balance);
+                  balance = withdraw(balance,storage);
+                   System.out.println();
                   break;
                }
 
                case 3:{
                    balance = checkBalance(balance);
+                   System.out.println();
                    break;
+               }
+
+               case 4:{
+                   transactionHistory(storage);
+                   System.out.println();
+                   break;
+               }
+
+               case 5:{
+                   System.out.println("PENDING STATUS: 404 ");
+                   System.out.println();
+                   break;
+               }
+
+               default:{
+                   System.out.println(" PLEASE ENTER A VALID INPUT ");
                }
 
            }
@@ -249,11 +270,12 @@ public class SmartBank_Console {
     }
 
     // The Deposit Method For The Banking Features
-    public static double deposit( double balance ){
+    public static double deposit( double balance,ArrayList<transHistory> storage ){
 
         // Deposit Variable
         double deposit;
         double add;
+        String type,dateNtime,acctNum,acctName;
 
         // Accepting User Input
         Scanner accept = new Scanner(System.in);
@@ -265,8 +287,25 @@ public class SmartBank_Console {
         System.out.println();
 
         // Accepting User Input
+        System.out.println("Enter Account Name: ");
+        acctName = accept.nextLine();
+        System.out.println();
+
+        System.out.println("Enter Account Number: ");
+        acctNum = accept.nextLine();
+        System.out.println();
+
+        System.out.println("Enter Transaction Type: ");
+        type = accept.nextLine();
+        System.out.println();
+
+        System.out.println("Enter Transaction Date(DD - MM - YY ) ");
+        dateNtime = accept.nextLine();
+        System.out.println();
+
         System.out.println("Enter Amount To Deposit ");
         deposit = accept.nextDouble();
+        System.out.println();
 
         // Adding to balance
        add = deposit + balance;
@@ -277,6 +316,9 @@ public class SmartBank_Console {
         System.out.println("Balance = GH$ " + add);
         System.out.println();
 
+        // Adding The Accepted Elements To The Transaction History Storage
+        storage.add( new transHistory( type,dateNtime,acctNum,acctName,deposit ) );
+
         return add;
 
 
@@ -285,11 +327,12 @@ public class SmartBank_Console {
 
 
     // The Withdrawal  Method For The Banking Features
-    public static double withdraw( double balance ){
+    public static double withdraw( double balance,ArrayList<transHistory> storage ){
 
         // Withdraw Menu variable
         double withdraw;
         double total = 0;
+        String acctName,acctNum,type,dateNtime;
 
         // Accepting User Input
         Scanner accept = new Scanner(System.in);
@@ -300,9 +343,27 @@ public class SmartBank_Console {
         System.out.println("__________________________________________________");
         System.out.println();
 
-        // Accepting User Withdraw Amount
+        // Accepting User Input
+
+        System.out.println("Enter Account Name: ");
+        acctName = accept.nextLine();
+        System.out.println();
+
+        System.out.println("Enter Account Number: ");
+        acctNum = accept.nextLine();
+        System.out.println();
+
+        System.out.println("Enter Transaction Type: ");
+        type = accept.nextLine();
+        System.out.println();
+
+        System.out.println("Enter Transaction Date(DD - MM - YY ) ");
+        dateNtime = accept.nextLine();
+        System.out.println();
+
         System.out.println(" Please Enter Amount To Withdraw ");
         withdraw = accept.nextDouble();
+        System.out.println();
 
         // Using If Statements To Determine Correct Cases
         if ( withdraw > balance ){
@@ -317,6 +378,10 @@ public class SmartBank_Console {
             System.out.println(" The Amount Of GH$ " + withdraw + " Has Been Completed....");
             System.out.println(" Withdraw done Successfully... ");
             System.out.println(" Balance is GH$ " + total);
+            System.out.println();
+
+            // Adding The Result To The Transaction History
+            storage.add( new transHistory( type,dateNtime,acctNum,acctName,withdraw ) );
 
         }
         else {
@@ -336,8 +401,30 @@ public class SmartBank_Console {
         System.out.println("_____________________________________________");
         System.out.println();
         System.out.println(" Your Balance Is GH$ "+ balance);
+        System.out.println();
 
         return balance;
+    }
+
+    // Method For Viewing Transaction History
+    public static void transactionHistory(ArrayList<transHistory> storage){
+        System.out.println("------------------------------------------------------------");
+        System.out.println("                    TRANSACTION HISTORY                     ");
+        System.out.println("____________________________________________________________");
+        System.out.println();
+
+        // Looping through the elements to be able to display them nicely
+        for ( transHistory dataBase: storage ){
+            System.out.println("Account Name: " + dataBase.acctName);
+            System.out.println("Account Number: " + dataBase.acctNumber);
+            System.out.println("Transaction Type: " + dataBase.transactionType);
+            System.out.println("Date Of Transaction: " + dataBase.dateNtime);
+            System.out.println("Amount: " + dataBase.amount);
+            System.out.println();
+            System.out.println("_______________________________________________________");
+            System.out.println();
+
+        }
     }
 
 
