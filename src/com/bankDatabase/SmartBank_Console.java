@@ -413,6 +413,7 @@ public class SmartBank_Console {
         System.out.println("____________________________________________________________");
         System.out.println();
 
+
         // Looping through the elements to be able to display them nicely
         for ( transHistory dataBase: storage ){
             System.out.println("Account Name: " + dataBase.acctName);
