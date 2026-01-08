@@ -19,57 +19,62 @@ public class SmartBank_Console {
         // Used To Accept User Input
         Scanner input = new Scanner(System.in);
 
-        // The Bank's User Interface Format
-        System.out.println();
-        System.out.println(" ******************************************** ");
-        System.out.println(" *****   SmartBank Console Application  ***** ");
-        System.out.println(" ******************************************** ");
-        System.out.println();
+        // Making the program run until the user exist
+        do{
 
-        // Making The User Choose A Valid Menu
-        System.out.println("1. User Account System ");
-        System.out.println("2. Banking Features ");
-        System.out.println("3. Admin Panel [ Separate Login ] ");
-        System.out.println("4. Transaction History System  ");
-        System.out.println("5. Exist ");
-        System.out.println();
-        System.out.println("Select An Option ");
-        Option = input.nextInt();
-        input.nextLine();
+            // The Bank's User Interface Format
+            System.out.println();
+            System.out.println(" ******************************************** ");
+            System.out.println(" *****   SmartBank Console Application  ***** ");
+            System.out.println(" ******************************************** ");
+            System.out.println();
 
-        // Using Switch Cases To Determine The User Input
-        switch (Option){
-            case 1:{
-                userAccountSystem(dataBank);
-                break;
+            // Making The User Choose A Valid Menu
+            System.out.println("1. User Account System ");
+            System.out.println("2. Banking Features ");
+            System.out.println("3. Admin Panel [ Separate Login ] ");
+            System.out.println("4. Transaction History System  ");
+            System.out.println("5. Exist ");
+            System.out.println();
+            System.out.println("Select An Option ");
+            Option = input.nextInt();
+            input.nextLine();
+
+            // Using Switch Cases To Determine The User Input
+            switch (Option){
+                case 1:{
+                    userAccountSystem(dataBank);
+                    break;
+                }
+
+                case 2:{
+                    bankingFeatures(storage);
+                    break;
+                }
+
+                case 3:{
+                    adminPanel(dataBank);
+                    break;
+                }
+
+                case 4:{
+                    System.out.println("Transaction History Pending ");
+                    break;
+                }
+
+                case 5:{
+                    System.out.println("Thank You For Visiting SmartBank Console ");
+                    break;
+                }
+
+                default:{
+                    System.out.println("Please Enter A Valid Input ");
+                    break;
+                }
+
             }
 
-            case 2:{
-                bankingFeatures(storage);
-                break;
-            }
-
-            case 3:{
-                System.out.println("Admin Panel [ Separate Login ] ");
-                break;
-            }
-
-            case 4:{
-                System.out.println("Transaction History System ");
-                break;
-            }
-
-            case 5:{
-                System.out.println("Thank You For Visiting SmartBank Console ");
-                break;
-            }
-
-            default:{
-                System.out.println("Please Enter A Valid Input ");
-                break;
-            }
-
-        }
+        }while(Option != 5 );
     }
 
     // User Account System Method
@@ -153,6 +158,7 @@ public class SmartBank_Console {
                        System.out.println("_____________________________________________________");
 
                        dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber));
+                   break;
                    }
 
                    case 2: {
@@ -255,8 +261,7 @@ public class SmartBank_Console {
                }
 
                case 5:{
-                   System.out.println("PENDING STATUS: 404 ");
-                   System.out.println();
+                   balance = transferFunds(storage,balance);
                    break;
                }
 
@@ -428,7 +433,185 @@ public class SmartBank_Console {
         }
     }
 
+    // Method For Transferring funds between two accounts
+    public static double transferFunds(ArrayList<transHistory> storage,double balance){
 
+        // Declaring Variables
+        String send,receive,sendName,receiveName,type,date_type;
+        double amount,total = 0;
+
+        // Accepting User Input
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("                          TRANSFER FUNDS                        ");
+        System.out.println("________________________________________________________________");
+        System.out.println();
+
+        // Accepting Senders Account Name
+        System.out.println(" Enter Sender's Account Name ");
+        sendName = input.nextLine();
+        System.out.println();
+
+        // Accepting Senders Account Number
+        System.out.println(" Enter Sender's Account Number ");
+        send = input.nextLine();
+        System.out.println();
+
+        // Accepting Receivers Account Name
+        System.out.println(" Enter Receiver's Account Name ");
+        receiveName = input.nextLine();
+        System.out.println();
+
+        // Accepting Receivers Account Number
+        System.out.println(" Enter Receiver's Account Number ");
+        receive = input.nextLine();
+        System.out.println();
+
+        // Type Of Transaction
+        System.out.println(" Enter Transaction Type ");
+        type = input.nextLine();
+        System.out.println();
+
+        // Date And Time Of Transaction
+        System.out.println(" Enter Date Of Transaction [DD/ MM/ YYY ]");
+        date_type = input.nextLine();
+        System.out.println();
+
+        // Accepting Amount To Transfer
+        System.out.println(" Enter Amount To Transfer ");
+        amount = input.nextDouble();
+        System.out.println();
+
+        // Using If Statements To Check For The Actual Error
+        if( amount > balance ){
+            System.out.println("PENDING STATUS: 404 ");
+            System.out.println("INSUFFICIENT BALANCE ");
+            System.out.println();
+        }
+
+        else if ( amount < balance ) {
+            System.out.println("TRANSFER SUCCESSFUL ");
+            System.out.println("Amount of GHC " + amount + " Has Been Transferred From: " );
+            System.out.println(" Sender's Account Name: " + sendName);
+            System.out.println(" Sender's Account Number: " + send);
+            System.out.println();
+
+            System.out.println("TRANSFER RECEIVED ");
+            System.out.println("Amount Of GHC "+ amount + " Has Been Received From: ");
+            System.out.println(" Receiver's Account Name: "+ receiveName);
+            System.out.println(" Receiver's Account Number: "+ receive);
+            System.out.println();
+
+            total = balance - amount;
+            System.out.println(" Balance: GHC " +total );
+
+        }
+
+        else{
+            System.out.println("PENDING STATUS: 404 ");
+            System.out.println(" PLEASE ENTER A VALID AMOUNT ");
+            System.out.println();
+        }
+
+        storage.add(new transHistory( type,date_type,send,sendName,amount ));
+
+        return total;
+
+    }
+
+    // Method For The Admin Panel [ Separate Login ]
+    public static void adminPanel(ArrayList<User> dataBank){
+
+        // Declaring Variables
+        int option;
+
+        // Accepting User Input
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("-------------------------------------------------------");
+        System.out.println("             ADMIN PANEL [ SEPARATE LOGIN ]            ");
+        System.out.println("_______________________________________________________");
+        System.out.println();
+        System.out.println("1.View All Customers ");
+        System.out.println("2.Search Customers [Name / Account NO ] ");
+        System.out.println("3.Delete Customer Account ");
+        System.out.println("4.Freeze Customer Account ");
+        System.out.println("5.Exit ");
+
+        System.out.println("Please select An Option ");
+        option = input.nextInt();
+        System.out.println();
+
+        // Using Switch Case To Determine User Input
+        switch (option){
+
+            case 1:{
+                viewCustomers( dataBank);
+                break;
+
+            }
+
+            case 2:{
+                System.out.println(" STATUS 404: SEARCH PENDING ");
+                break;
+
+            }
+
+            case 3:{
+                System.out.println(" STATUS 404: DELETE PENDING ");
+                break;
+
+            }
+
+            case 4:{
+                System.out.println(" STATUS 404: FREEZE PENDING ");
+                break;
+
+            }
+
+            case 5:{
+                System.out.println(" COME BACK NEXT TIME ");
+                break;
+            }
+
+            default:{
+                System.out.println(" PLEASE ENTER A VALID INPUT ");
+                break;
+            }
+
+        }
+    }
+
+    // Method For View All Customers
+    public static void viewCustomers(ArrayList<User> databank){
+        System.out.println("----------------------------------------------------------");
+        System.out.println("                   VIEW ALL CUSTOMERS                     ");
+        System.out.println("__________________________________________________________");
+        System.out.println();
+
+        for( User storage : databank ){
+            System.out.println(" Personal Details: ");
+            System.out.println("First Name    : " + storage.firstName);
+            System.out.println("Last Name     : " + storage.lastName);
+            System.out.println("Date Of Birth : " + storage.dateOfBirth);
+            System.out.println("ID Number     : " + storage.idNUmber);
+            System.out.println();
+
+            System.out.println(" Bank Details: ");
+            System.out.println("Email        : " + storage.email);
+            System.out.println("Phone Number : " + storage.phoneNumber);
+            System.out.println("Address      : " + storage.address);
+            System.out.println("Occupation   : " + storage.occupation);
+            System.out.println("=====================================================");
+            System.out.println();
+
+
+
+        }
+
+
+    }
 
 
 }
