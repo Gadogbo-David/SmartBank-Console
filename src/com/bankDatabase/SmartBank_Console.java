@@ -19,62 +19,77 @@ public class SmartBank_Console {
         // Used To Accept User Input
         Scanner input = new Scanner(System.in);
 
-        // Making the program run until the user exist
-        do{
 
-            // The Bank's User Interface Format
-            System.out.println();
-            System.out.println(" ******************************************** ");
-            System.out.println(" *****   SmartBank Console Application  ***** ");
-            System.out.println(" ******************************************** ");
-            System.out.println();
+                // Making the program run until the user exist
+                do{
 
-            // Making The User Choose A Valid Menu
-            System.out.println("1. User Account System ");
-            System.out.println("2. Banking Features ");
-            System.out.println("3. Admin Panel [ Separate Login ] ");
-            System.out.println("4. Transaction History System  ");
-            System.out.println("5. Exist ");
-            System.out.println();
-            System.out.println("Select An Option ");
-            Option = input.nextInt();
-            input.nextLine();
+                    // The Bank's User Interface Format
+                    System.out.println();
+                    System.out.println(" ******************************************** ");
+                    System.out.println(" *****   SmartBank Console Application  ***** ");
+                    System.out.println(" ******************************************** ");
+                    System.out.println();
 
-            // Using Switch Cases To Determine The User Input
-            switch (Option){
-                case 1:{
-                    userAccountSystem(dataBank);
-                    break;
-                }
+                    // Making The User Choose A Valid Menu
+                    System.out.println("1. User Account System ");
+                    System.out.println("2. Banking Features ");
+                    System.out.println("3. Admin Panel [ Separate Login ] ");
+                    System.out.println("4. Transaction History System  ");
+                    System.out.println("5. Exist ");
+                    System.out.println();
+                    System.out.println("Select An Option ");
 
-                case 2:{
-                    bankingFeatures(storage);
-                    break;
-                }
+                    // Involving Try And Catch
+                    try{
 
-                case 3:{
-                    adminPanel(dataBank);
-                    break;
-                }
+                        Option = input.nextInt();
+                        input.nextLine();
 
-                case 4:{
-                    System.out.println("Transaction History Pending ");
-                    break;
-                }
+                        // Using Switch Cases To Determine The User Input
+                        switch (Option){
+                            case 1:{
+                                userAccountSystem(dataBank);
+                                break;
+                            }
 
-                case 5:{
-                    System.out.println("Thank You For Visiting SmartBank Console ");
-                    break;
-                }
+                            case 2:{
+                                bankingFeatures(storage);
+                                break;
+                            }
 
-                default:{
-                    System.out.println("Please Enter A Valid Input ");
-                    break;
-                }
+                            case 3:{
+                                adminPanel(dataBank);
+                                break;
+                            }
 
-            }
+                            case 4:{
+                                System.out.println("Transaction History Pending ");
+                                break;
+                            }
 
-        }while(Option != 5 );
+                            case 5:{
+                                System.out.println("Thank You For Visiting SmartBank Console ");
+                                break;
+                            }
+
+                            default:{
+                                System.out.println("Please Enter A Valid Input ");
+                                break;
+                            }
+
+                        }
+
+
+                    } catch (Exception e){
+                        System.out.println("STATUS 404: INVALID INPUT" + e);
+                        System.out.println(" Enter Valid Number Between 1- 5");
+                        input.nextLine();
+                        Option = 0;
+                    }
+
+
+                }while(Option != 5 );
+                
     }
 
     // User Account System Method
