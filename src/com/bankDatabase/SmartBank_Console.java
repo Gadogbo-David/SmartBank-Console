@@ -222,8 +222,9 @@ public class SmartBank_Console {
 
              }
              catch (Exception e){
-                 System.out.println("STATUS 404: ERROR MESSAGE"+ e);
-                 System.out.println("Please Enter A Valid Number " + e);
+                 System.out.println("STATUS 404: ERROR MESSAGE "+ e);
+                 System.out.println("Please Enter A Valid Number ");
+                 accept.nextLine();
                  option = 0;
              }
 
