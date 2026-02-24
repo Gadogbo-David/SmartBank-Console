@@ -89,7 +89,7 @@ public class SmartBank_Console {
 
 
                 }while(Option != 5 );
-                
+
     }
 
     // User Account System Method
@@ -108,112 +108,126 @@ public class SmartBank_Console {
        System.out.println();
        System.out.println("1. Create A New Account ");
        System.out.println("2. Already Have An Account [ Login ] ");
-       option = accept.nextInt();
-       accept.nextLine();
+       System.out.println("3. Exit ");
 
-       // Making Sure The User Types The Correct Things
+         do{
 
+             try {
 
-               // Using Switch Case to check the option
-               switch (option) {
-                   case 1: {
+                 option = accept.nextInt();
+                 accept.nextLine();
 
-                       // Variables For The New Account Creation
-                       String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber;
+                 // Using Switch Case to check the option
+                 switch (option) {
+                     case 1: {
 
-                       // New Account UI
-                       System.out.println();
-                       System.out.println("----------------------------------------------");
-                       System.out.println("              New Account Creation            ");
-                       System.out.println("______________________________________________");
-                       System.out.println();
+                         // Variables For The New Account Creation
+                         String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber;
 
-                       // Accepting First Name
-                       System.out.println(" Enter First Name ");
-                       firstName = accept.nextLine();
-                       System.out.println();
+                         // New Account UI
+                         System.out.println();
+                         System.out.println("----------------------------------------------");
+                         System.out.println("              New Account Creation            ");
+                         System.out.println("______________________________________________");
+                         System.out.println();
 
-                       // Accepting Last Name
-                       System.out.println(" Enter Last Name ");
-                       lastName = accept.nextLine();
-                       System.out.println();
+                         // Accepting First Name
+                         System.out.println(" Enter First Name ");
+                         firstName = accept.nextLine();
+                         System.out.println();
 
-                       // Accepting Date Of Birth
-                       System.out.println(" Enter Date Of Birth ");
-                       dateOfBirth = accept.nextLine();
-                       System.out.println();
+                         // Accepting Last Name
+                         System.out.println(" Enter Last Name ");
+                         lastName = accept.nextLine();
+                         System.out.println();
 
-                       // Accepting Email
-                       System.out.println(" Enter Your Email ");
-                       email = accept.nextLine();
-                       System.out.println();
+                         // Accepting Date Of Birth
+                         System.out.println(" Enter Date Of Birth ");
+                         dateOfBirth = accept.nextLine();
+                         System.out.println();
 
-                       // Accepting Occupation
-                       System.out.println(" Enter Your Occupation ");
-                       occupation = accept.nextLine();
-                       System.out.println();
+                         // Accepting Email
+                         System.out.println(" Enter Your Email ");
+                         email = accept.nextLine();
+                         System.out.println();
 
-                       // Accepting Address
-                       System.out.println(" Enter Address ");
-                       address = accept.nextLine();
-                       System.out.println();
+                         // Accepting Occupation
+                         System.out.println(" Enter Your Occupation ");
+                         occupation = accept.nextLine();
+                         System.out.println();
 
-                       // Accepting Phone Number
-                       System.out.println(" Enter Phone Number ");
-                       phoneNumber = accept.nextLine();
-                       System.out.println();
+                         // Accepting Address
+                         System.out.println(" Enter Address ");
+                         address = accept.nextLine();
+                         System.out.println();
 
-                       // Accepting ID Number
-                       System.out.println(" Enter Id Number ");
-                       idNUmber = accept.nextLine();
-                       System.out.println();
+                         // Accepting Phone Number
+                         System.out.println(" Enter Phone Number ");
+                         phoneNumber = accept.nextLine();
+                         System.out.println();
 
-                       System.out.println("-----------------------------------------------------");
-                       System.out.println("           ** Account Creation Completed **          ");
-                       System.out.println("_____________________________________________________");
+                         // Accepting ID Number
+                         System.out.println(" Enter Id Number ");
+                         idNUmber = accept.nextLine();
+                         System.out.println();
 
-                       dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber));
-                   break;
-                   }
+                         System.out.println("-----------------------------------------------------");
+                         System.out.println("           ** Account Creation Completed **          ");
+                         System.out.println("_____________________________________________________");
 
-                   case 2: {
-                       // Used Variables
-                       String userName, password;
+                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber));
+                         break;
+                     }
 
-                       // Login UI
-                       System.out.println();
-                       System.out.println("----------------------------------------------------");
-                       System.out.println("          ** Login To SmartBank Console **          ");
-                       System.out.println("____________________________________________________");
-                       System.out.println();
+                     case 2: {
+                         // Used Variables
+                         String userName, password;
 
-                       // Accepting Username
-                       System.out.println("Enter Your UserName: ");
-                       userName = accept.nextLine();
-                       System.out.println();
+                         // Login UI
+                         System.out.println();
+                         System.out.println("----------------------------------------------------");
+                         System.out.println("          ** Login To SmartBank Console **          ");
+                         System.out.println("____________________________________________________");
+                         System.out.println();
 
-                       // Accepting Password
-                       System.out.println("Enter Your Password ");
-                       password = accept.nextLine();
-                       System.out.println();
+                         // Accepting Username
+                         System.out.println("Enter Your UserName: ");
+                         userName = accept.nextLine();
+                         System.out.println();
 
-                       System.out.println("--------------------------------------------------");
-                       System.out.println(" Welcome Back Mr " + userName);
-                       System.out.println(" And Your Password Is " + password);
-                       System.out.println("__________________________________________________");
-                       System.out.println();
-                       break;
-                   }
+                         // Accepting Password
+                         System.out.println("Enter Your Password ");
+                         password = accept.nextLine();
+                         System.out.println();
 
-                   default: {
-                       System.out.println();
-                       System.out.println("Please Enter A Valid Input ");
-                       break;
-                   }
-               }
+                         System.out.println("--------------------------------------------------");
+                         System.out.println(" Welcome Back Mr " + userName);
+                         System.out.println(" And Your Password Is " + password);
+                         System.out.println("__________________________________________________");
+                         System.out.println();
+                         break;
+                     }
 
+                     case 3:{
+                         System.out.println(" STATUS 404: ERROR PAGE, GOING BACK ");
+                         break;
+                     }
 
+                     default: {
+                         System.out.println();
+                         System.out.println("Please Enter A Valid Input ");
+                         break;
+                     }
+                 }
 
+             }
+             catch (Exception e){
+                 System.out.println("STATUS 404: ERROR MESSAGE"+ e);
+                 System.out.println("Please Enter A Valid Number " + e);
+                 option = 0;
+             }
+
+         }while (option!=3);
 
 
    }
