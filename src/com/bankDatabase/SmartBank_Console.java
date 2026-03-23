@@ -81,8 +81,8 @@ public class SmartBank_Console {
 
 
                     } catch (Exception e){
-                        System.out.println("STATUS 404: INVALID INPUT" + e);
-                        System.out.println(" Enter Valid Number Between 1- 5");
+                        System.out.println("STATUS 404: INVALID INPUT " + e);
+                        System.out.println(" Enter Valid Number Between 1 - 5");
                         input.nextLine();
                         Option = 0;
                     }
@@ -123,6 +123,7 @@ public class SmartBank_Console {
 
                          // Variables For The New Account Creation
                          String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber;
+                         double balance;
 
                          // New Account UI
                          System.out.println();
@@ -171,11 +172,16 @@ public class SmartBank_Console {
                          idNUmber = accept.nextLine();
                          System.out.println();
 
+                         // Accepting Initial Deposit
+                         System.out.println(" Enter Minimal Deposit Amount ");
+                         balance = accept.nextDouble();
+                         System.out.println();
+
                          System.out.println("-----------------------------------------------------");
                          System.out.println("           ** Account Creation Completed **          ");
                          System.out.println("_____________________________________________________");
 
-                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber));
+                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber,balance));
                          break;
                      }
 
@@ -633,6 +639,9 @@ public class SmartBank_Console {
             System.out.println("Phone Number : " + storage.phoneNumber);
             System.out.println("Address      : " + storage.address);
             System.out.println("Occupation   : " + storage.occupation);
+
+            System.out.println(" Account Balance: ");
+            System.out.println(" Balance: " + storage.balance);
             System.out.println("=====================================================");
             System.out.println();
 

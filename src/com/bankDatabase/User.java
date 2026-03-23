@@ -4,10 +4,11 @@ public class User {
 
     // Declaring Variables Names
     String firstName,lastName,dateOfBirth,email,occupation,address,phoneNumber,idNUmber;
+    double balance;
 
     // Constructors
     User( String firstName, String lastName, String dateOfBirth, String email,
-          String occupation, String address, String phoneNumber, String idNUmber){
+          String occupation, String address, String phoneNumber, String idNUmber, double balance){
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -16,6 +17,7 @@ public class User {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.idNUmber = idNUmber;
+        this.balance = balance;
     }
 
 }
