@@ -48,7 +48,7 @@ public class SmartBank_Console {
                         // Using Switch Cases To Determine The User Input
                         switch (Option){
                             case 1:{
-                                userAccountSystem(dataBank);
+                                userAccountSystem(dataBank,storage);
                                 break;
                             }
 
@@ -93,7 +93,7 @@ public class SmartBank_Console {
     }
 
     // User Account System Method
-   public static void  userAccountSystem( ArrayList<User> dataBank ) {
+   public static void  userAccountSystem( ArrayList<User> dataBank, ArrayList<transHistory> storage ) {
 
        // Accepting Variable
        int option;
@@ -101,16 +101,17 @@ public class SmartBank_Console {
        // Accepting Input
        Scanner accept = new Scanner(System.in);
 
-       // User Account UI
-       System.out.println("--------------------------------------------------------");
-       System.out.println("                * USER ACCOUNT SYSTEM *                 ");
-       System.out.println("________________________________________________________");
-       System.out.println();
-       System.out.println("1. Create A New Account ");
-       System.out.println("2. Already Have An Account [ Login ] ");
-       System.out.println("3. Exit ");
-
          do{
+
+             // User Account UI
+             System.out.println("--------------------------------------------------------");
+             System.out.println("                * USER ACCOUNT SYSTEM *                 ");
+             System.out.println("________________________________________________________");
+             System.out.println();
+             System.out.println("1. Create A New Account ");
+             System.out.println("2. Already Have An Account [ Login ] ");
+             System.out.println("3. Exit ");
+             System.out.println();
 
              try {
 
@@ -122,7 +123,7 @@ public class SmartBank_Console {
                      case 1: {
 
                          // Variables For The New Account Creation
-                         String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber;
+                         String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber,Password,UserName;
                          double balance;
 
                          // New Account UI
@@ -140,6 +141,11 @@ public class SmartBank_Console {
                          // Accepting Last Name
                          System.out.println(" Enter Last Name ");
                          lastName = accept.nextLine();
+                         System.out.println();
+
+                         // Accepting UserName
+                         System.out.println(" Create UserName: ");
+                         UserName = accept.nextLine();
                          System.out.println();
 
                          // Accepting Date Of Birth
@@ -172,50 +178,42 @@ public class SmartBank_Console {
                          idNUmber = accept.nextLine();
                          System.out.println();
 
+                         // Accepting Password
+                         System.out.println(" Enter New Password: ");
+                         Password = accept.nextLine();
+                         System.out.println();
+
                          // Accepting Initial Deposit
                          System.out.println(" Enter Minimal Deposit Amount ");
-                         balance = accept.nextDouble();
-                         System.out.println();
+
+                         try{
+                             balance = accept.nextDouble();
+                             System.out.println();
+                         }
+                         catch ( Exception e){
+                             System.out.println("STATUS 404: ERROR MESSAGE "+ e);
+                             System.out.println("Please Enter A Valid Number ");
+                             accept.nextDouble();
+                             balance = 0;
+
+                         }
+
 
                          System.out.println("-----------------------------------------------------");
                          System.out.println("           ** Account Creation Completed **          ");
                          System.out.println("_____________________________________________________");
 
-                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber,balance));
+                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber,balance,Password,UserName));
                          break;
                      }
 
                      case 2: {
-                         // Used Variables
-                         String userName, password;
-
-                         // Login UI
-                         System.out.println();
-                         System.out.println("----------------------------------------------------");
-                         System.out.println("          ** Login To SmartBank Console **          ");
-                         System.out.println("____________________________________________________");
-                         System.out.println();
-
-                         // Accepting Username
-                         System.out.println("Enter Your UserName: ");
-                         userName = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Password
-                         System.out.println("Enter Your Password ");
-                         password = accept.nextLine();
-                         System.out.println();
-
-                         System.out.println("--------------------------------------------------");
-                         System.out.println(" Welcome Back Mr " + userName);
-                         System.out.println(" And Your Password Is " + password);
-                         System.out.println("__________________________________________________");
-                         System.out.println();
+                         loginAccount(dataBank,storage);
                          break;
                      }
 
                      case 3:{
-                         System.out.println(" STATUS 404: ERROR PAGE, GOING BACK ");
+                         System.out.println(" STATUS 404:  GOING BACK ");
                          break;
                      }
 
@@ -309,6 +307,61 @@ public class SmartBank_Console {
 
        }while(Option != 6 );
     }
+
+    // Login Process Account
+    public static void loginAccount(ArrayList<User> dataBank,ArrayList<transHistory> storage){
+
+        // Accepting User Input Into Variables
+        Scanner accept = new Scanner(System.in);
+
+        // Variables
+        String UserName,Password;
+
+
+        System.out.println("-------------------------------------------------------------");
+        System.out.println("                ACCOUNT LOGIN VERIFICATION                   ");
+        System.out.println("_____________________________________________________________");
+        System.out.println();
+
+        System.out.println(" Enter UserName: ");
+        UserName = accept.nextLine();
+        System.out.println();
+
+        System.out.println(" Enter Account Password: ");
+        Password = accept.nextLine();
+        System.out.println();
+
+        // Using Try And Catch To Detect Errors
+        try {
+            for ( User fank : dataBank ){
+
+                if ( UserName.equals(fank.UserName) && Password.equals(fank.Password)){
+                    bankingFeatures(storage);
+                }
+
+                else {
+                    System.out.println(" STATUS 404: WRONG LOGIN INFORMATION ");
+                }
+
+            }
+
+
+        }
+        catch ( Exception e){
+            System.out.println(" STATUS 404 : " + e);
+
+            System.out.println(" Enter A Valid Username: ");
+            accept.nextLine();
+            UserName = accept.nextLine();
+
+            System.out.println(" Enter User Password: ");
+            accept.nextLine();
+            Password = accept.nextLine();
+
+        }
+
+    }
+
 
     // The Deposit Method For The Banking Features
     public static double deposit( double balance,ArrayList<transHistory> storage ){
