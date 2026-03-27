@@ -74,6 +74,10 @@ The whole app runs through a clean menu-driven interface, so users can navigate 
 
 - Transfer money between accounts
 
+- Check Balance
+
+- View Transaction History
+
 ---
 
 3. **Admin Panel [Separate Login] 🏦:**
