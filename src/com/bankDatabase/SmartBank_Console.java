@@ -26,16 +26,15 @@ public class SmartBank_Console {
                     // The Bank's User Interface Format
                     System.out.println();
                     System.out.println(" ******************************************** ");
-                    System.out.println(" *****   SmartBank Console Application  ***** ");
+                    System.out.println(" *****   SMARTBANK CONSOLE APPLICATION  ***** ");
                     System.out.println(" ******************************************** ");
                     System.out.println();
 
                     // Making The User Choose A Valid Menu
                     System.out.println("1. User Account System ");
-                    System.out.println("2. Banking Features ");
-                    System.out.println("3. Admin Panel [ Separate Login ] ");
-                    System.out.println("4. Transaction History System  ");
-                    System.out.println("5. Exist ");
+                    System.out.println("2. Admin Panel [ Separate Login ] ");
+                    System.out.println("3. Transaction History System  ");
+                    System.out.println("4. Exit ");
                     System.out.println();
                     System.out.println("Select An Option ");
 
@@ -53,21 +52,16 @@ public class SmartBank_Console {
                             }
 
                             case 2:{
-                                bankingFeatures(storage);
-                                break;
-                            }
-
-                            case 3:{
                                 adminPanel(dataBank);
                                 break;
                             }
 
-                            case 4:{
+                            case 3:{
                                 System.out.println("Transaction History Pending ");
                                 break;
                             }
 
-                            case 5:{
+                            case 4:{
                                 System.out.println("Thank You For Visiting SmartBank Console ");
                                 break;
                             }
@@ -82,13 +76,13 @@ public class SmartBank_Console {
 
                     } catch (Exception e){
                         System.out.println("STATUS 404: INVALID INPUT " + e);
-                        System.out.println(" Enter Valid Number Between 1 - 5");
+                        System.out.println(" Enter Valid Number Between 1 - 4");
                         input.nextLine();
                         Option = 0;
                     }
 
 
-                }while(Option != 5 );
+                }while(Option != 4 );
 
     }
 
@@ -149,7 +143,7 @@ public class SmartBank_Console {
                          System.out.println();
 
                          // Accepting Date Of Birth
-                         System.out.println(" Enter Date Of Birth ");
+                         System.out.println(" Enter Date Of Birth [DD / MM / YY ] ");
                          dateOfBirth = accept.nextLine();
                          System.out.println();
 
@@ -164,12 +158,12 @@ public class SmartBank_Console {
                          System.out.println();
 
                          // Accepting Address
-                         System.out.println(" Enter Address ");
+                         System.out.println(" Enter Address [ REGION - CITY ] ");
                          address = accept.nextLine();
                          System.out.println();
 
                          // Accepting Phone Number
-                         System.out.println(" Enter Phone Number ");
+                         System.out.println(" Enter Phone Number [ +233 ****** ] ");
                          phoneNumber = accept.nextLine();
                          System.out.println();
 
@@ -202,6 +196,7 @@ public class SmartBank_Console {
                          System.out.println("-----------------------------------------------------");
                          System.out.println("           ** Account Creation Completed **          ");
                          System.out.println("_____________________________________________________");
+                         System.out.println();
 
                          dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber,balance,Password,UserName));
                          break;
@@ -213,7 +208,7 @@ public class SmartBank_Console {
                      }
 
                      case 3:{
-                         System.out.println(" STATUS 404:  GOING BACK ");
+                         System.out.println(" STATUS 404:  EXITED COMPLETED ");
                          break;
                      }
 
@@ -299,6 +294,12 @@ public class SmartBank_Console {
                    break;
                }
 
+               case 6:{
+                   System.out.println("THANK YOU FOR USING SMARTBANK");
+                   System.out.println(" COME BACK AGAIN ");
+                   break;
+               }
+
                default:{
                    System.out.println(" PLEASE ENTER A VALID INPUT ");
                }
@@ -341,8 +342,9 @@ public class SmartBank_Console {
 
                 else {
                     System.out.println(" STATUS 404: WRONG LOGIN INFORMATION ");
+                    System.out.println(" LOGIN AGAIN OR CREATE A NEW ACCOUNT ");
+                    System.out.println();
                 }
-
             }
 
 
