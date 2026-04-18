@@ -625,7 +625,7 @@ public class SmartBank_Console {
         System.out.println("_______________________________________________________");
         System.out.println();
         System.out.println("1.View All Customers ");
-        System.out.println("2.Search Customers [Name / Account NO ] ");
+        System.out.println("2.Search Customers [ ID NUMBER ] ");
         System.out.println("3.Delete Customer Account ");
         System.out.println("4.Freeze Customer Account ");
         System.out.println("5.Exit ");
@@ -644,7 +644,7 @@ public class SmartBank_Console {
             }
 
             case 2:{
-                System.out.println(" STATUS 404: SEARCH PENDING ");
+                searchCustomer(dataBank);
                 break;
 
             }
@@ -705,6 +705,60 @@ public class SmartBank_Console {
         }
 
 
+    }
+
+    // Method For Searching For Customers
+    public static void searchCustomer(ArrayList<User> databank){
+
+        String idNumber;
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("----------------------------------------------------");
+        System.out.println("               SEARCH ALL CUSTOMER                  ");
+        System.out.println("----------------------------------------------------");
+        System.out.println();
+
+        // Customers Id Number
+        System.out.println(" Enter Customer's id Number: ");
+        idNumber = input.nextLine();
+
+        for( User searc : databank){
+              if (idNumber.equals(searc.idNUmber)){
+
+                  System.out.println("-----------------------------------------------");
+                  System.out.println("                 CUSTOMER FOUND                ");
+                  System.out.println("_______________________________________________");
+                  System.out.println();
+                  System.out.println(" Personal Details: ");
+                  System.out.println("First Name    : " + searc.firstName);
+                  System.out.println("Last Name     : " + searc.lastName);
+                  System.out.println("Date Of Birth : " + searc.dateOfBirth);
+                  System.out.println("ID Number     : " + searc.idNUmber);
+                  System.out.println();
+
+                  System.out.println(" Bank Details: ");
+                  System.out.println("Email        : " + searc.email);
+                  System.out.println("Phone Number : " + searc.phoneNumber);
+                  System.out.println("Address      : " + searc.address);
+                  System.out.println("Occupation   : " + searc.occupation);
+
+                  System.out.println(" Account Balance: ");
+                  System.out.println(" Balance: " + searc.balance);
+                  System.out.println("=====================================================");
+                  System.out.println();
+              }
+
+
+        }
+
+         if (idNumber.isEmpty()){
+            System.out.println("---------------------------------------------------");
+            System.out.println("                   NO CUSTOMER FOUND !!!           ");
+            System.out.println("___________________________________________________");
+            System.out.println();
+        }
+        
     }
 
 
