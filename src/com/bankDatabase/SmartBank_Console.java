@@ -650,7 +650,7 @@ public class SmartBank_Console {
             }
 
             case 3:{
-                System.out.println(" STATUS 404: DELETE PENDING ");
+                deleteCustomer(dataBank);
                 break;
 
             }
@@ -761,5 +761,27 @@ public class SmartBank_Console {
         
     }
 
+    // Method For Deleting Customer Account
+    public static void deleteCustomer(ArrayList<User> databank){
+        String idNumber;
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("---------------------------------------------------------");
+        System.out.println("               DELETE CUSTOMER ACCOUNT                   ");
+        System.out.println("_________________________________________________________");
+        System.out.println();
+        System.out.println(" Enter Customer Id Number: ");
+        idNumber = input.nextLine();
+        for ( User stick : databank){
+               if (idNumber.equalsIgnoreCase(stick.idNUmber)){
+                   System.out.println("--------------------------------------------");
+                   System.out.println("         CUSTOMER DELETION COMPLETED        ");
+                   System.out.println("____________________________________________");
+                   System.out.println();
+                   databank.clear();
+
+               }
+        }
+    }
 
 }
