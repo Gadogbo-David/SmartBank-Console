@@ -615,63 +615,79 @@ public class SmartBank_Console {
     public static void adminPanel(ArrayList<User> dataBank){
 
         // Declaring Variables
-        int option;
+        int option = 0;
 
         // Accepting User Input
         Scanner input = new Scanner(System.in);
 
-        System.out.println("-------------------------------------------------------");
-        System.out.println("             ADMIN PANEL [ SEPARATE LOGIN ]            ");
-        System.out.println("_______________________________________________________");
-        System.out.println();
-        System.out.println("1.View All Customers ");
-        System.out.println("2.Search Customers [ ID NUMBER ] ");
-        System.out.println("3.Delete Customer Account ");
-        System.out.println("4.Freeze Customer Account ");
-        System.out.println("5.Exit ");
+       do{
 
-        System.out.println("Please select An Option ");
-        option = input.nextInt();
-        System.out.println();
 
-        // Using Switch Case To Determine User Input
-        switch (option){
+          try {
 
-            case 1:{
-                viewCustomers( dataBank);
-                break;
 
-            }
+              System.out.println("-------------------------------------------------------");
+              System.out.println("             ADMIN PANEL [ SEPARATE LOGIN ]            ");
+              System.out.println("_______________________________________________________");
+              System.out.println();
+              System.out.println("1.View All Customers ");
+              System.out.println("2.Search Customers [ ID NUMBER ] ");
+              System.out.println("3.Delete Customer Account ");
+              System.out.println("4.Freeze Customer Account ");
+              System.out.println("5.Exit ");
 
-            case 2:{
-                searchCustomer(dataBank);
-                break;
+              System.out.println("Please select An Option ");
+              option = input.nextInt();
+              System.out.println();
 
-            }
+              // Using Switch Case To Determine User Input
+              switch (option){
 
-            case 3:{
-                deleteCustomer(dataBank);
-                break;
+                  case 1:{
+                      viewCustomers( dataBank);
+                      break;
 
-            }
+                  }
 
-            case 4:{
-                System.out.println(" STATUS 404: FREEZE PENDING ");
-                break;
+                  case 2:{
+                      searchCustomer(dataBank);
+                      break;
 
-            }
+                  }
 
-            case 5:{
-                System.out.println(" COME BACK NEXT TIME ");
-                break;
-            }
+                  case 3:{
+                      deleteCustomer(dataBank);
+                      break;
 
-            default:{
-                System.out.println(" PLEASE ENTER A VALID INPUT ");
-                break;
-            }
+                  }
 
-        }
+                  case 4:{
+                      System.out.println(" STATUS 404: FREEZE PENDING ");
+                      break;
+
+                  }
+
+                  case 5:{
+                      System.out.println(" COME BACK NEXT TIME ");
+                      break;
+                  }
+
+                  default:{
+                      System.out.println(" PLEASE ENTER A VALID INPUT ");
+                      break;
+                  }
+
+              }
+          }catch (Exception e){
+              System.out.println("STATUS 404: INVALID INPUT " + e);
+              System.out.println(" Enter Valid Number Between 1 - 4");
+              input.nextLine();
+              option = 0;
+
+          }
+
+       }while (option != 5);
+
     }
 
     // Method For View All Customers
@@ -777,7 +793,7 @@ public class SmartBank_Console {
                    System.out.println("--------------------------------------------");
                    System.out.println("         CUSTOMER DELETION COMPLETED        ");
                    System.out.println("____________________________________________");
-                   System.out.println();
+                   System.out.println("Deletes All Customers For Now ");
                    databank.clear();
 
                }
