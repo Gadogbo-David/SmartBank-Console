@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 //  SmartBank Java Console Application
 public class SmartBank_Console {
+
     public static void main( String[] args){
 
         // Declaring Variables
@@ -26,7 +27,7 @@ public class SmartBank_Console {
                     // The Bank's User Interface Format
                     System.out.println();
                     System.out.println(" ******************************************** ");
-                    System.out.println(" *****   SMARTBANK CONSOLE APPLICATION  ***** ");
+                    System.out.println(" *****   SMART-BANK CONSOLE APPLICATION  ***** ");
                     System.out.println(" ******************************************** ");
                     System.out.println();
 
@@ -45,31 +46,12 @@ public class SmartBank_Console {
                         input.nextLine();
 
                         // Using Switch Cases To Determine The User Input
-                        switch (Option){
-                            case 1:{
-                                userAccountSystem(dataBank,storage);
-                                break;
-                            }
-
-                            case 2:{
-                                adminPanel(dataBank);
-                                break;
-                            }
-
-                            case 3:{
-                                System.out.println("Transaction History Pending ");
-                                break;
-                            }
-
-                            case 4:{
-                                System.out.println("Thank You For Visiting SmartBank Console ");
-                                break;
-                            }
-
-                            default:{
-                                System.out.println("Please Enter A Valid Input ");
-                                break;
-                            }
+                        switch (Option) {
+                            case 1 -> userAccountSystem(dataBank, storage, input);
+                            case 2 -> adminPanel(dataBank, input);
+                            case 3 -> System.out.println("Transaction History Pending ");
+                            case 4 -> System.out.println("Thank You For Visiting SmartBank Console ");
+                            default -> System.out.println("Please Enter A Valid Input ");
 
                         }
 
@@ -87,13 +69,10 @@ public class SmartBank_Console {
     }
 
     // User Account System Method
-   public static void  userAccountSystem( ArrayList<User> dataBank, ArrayList<transHistory> storage ) {
+   public static void  userAccountSystem( ArrayList<User> dataBank, ArrayList<transHistory> storage, Scanner accept) {
 
        // Accepting Variable
        int option;
-
-       // Accepting Input
-       Scanner accept = new Scanner(System.in);
 
          do{
 
@@ -114,10 +93,10 @@ public class SmartBank_Console {
 
                  // Using Switch Case to check the option
                  switch (option) {
-                     case 1: {
+                     case 1 -> {
 
                          // Variables For The New Account Creation
-                         String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber,Password,UserName;
+                         String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber, Password, UserName;
                          double balance;
 
                          // New Account UI
@@ -180,12 +159,11 @@ public class SmartBank_Console {
                          // Accepting Initial Deposit
                          System.out.println(" Enter Minimal Deposit Amount ");
 
-                         try{
+                         try {
                              balance = accept.nextDouble();
                              System.out.println();
-                         }
-                         catch ( Exception e){
-                             System.out.println("STATUS 404: ERROR MESSAGE "+ e);
+                         } catch (Exception e) {
+                             System.out.println("STATUS 404: ERROR MESSAGE " + e);
                              System.out.println("Please Enter A Valid Number ");
                              accept.nextDouble();
                              balance = 0;
@@ -198,24 +176,15 @@ public class SmartBank_Console {
                          System.out.println("_____________________________________________________");
                          System.out.println();
 
-                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber,balance,Password,UserName));
-                         break;
+                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber, balance, Password, UserName));
                      }
+                     case 2 -> loginAccount(dataBank, storage, accept);
 
-                     case 2: {
-                         loginAccount(dataBank,storage);
-                         break;
-                     }
+                     case 3 -> System.out.println(" STATUS 404:  EXITED COMPLETED ");
 
-                     case 3:{
-                         System.out.println(" STATUS 404:  EXITED COMPLETED ");
-                         break;
-                     }
-
-                     default: {
+                     default -> {
                          System.out.println();
                          System.out.println("Please Enter A Valid Input ");
-                         break;
                      }
                  }
 
@@ -233,14 +202,11 @@ public class SmartBank_Console {
    }
 
    // Banking Features Method
-    public static void bankingFeatures( ArrayList<transHistory> storage){
+    public static void bankingFeatures( ArrayList<transHistory> storage, Scanner accept){
 
         // Variable Selection
         int Option;
         double balance = 0;
-
-        // Used For Accepting User Input
-        Scanner accept = new Scanner(System.in);
 
         // Using do while loop until the user Exits
        do{
@@ -264,45 +230,23 @@ public class SmartBank_Console {
            accept.nextLine();
 
            // Using Switch Case To Determine Each User Input
-           switch (Option){
-               case 1:{
-                   balance = deposit(balance,storage);
-                   System.out.println();
-                   break;
-               }
+           switch (Option) {
+               case 1 -> balance = deposit(balance, storage, accept);
 
-               case 2:{
-                  balance = withdraw(balance,storage);
-                   System.out.println();
-                  break;
-               }
+               case 2 -> balance = withdraw(balance, storage, accept);
 
-               case 3:{
-                   balance = checkBalance(balance);
-                   System.out.println();
-                   break;
-               }
+               case 3 -> balance = checkBalance(balance);
 
-               case 4:{
-                   transactionHistory(storage);
-                   System.out.println();
-                   break;
-               }
+               case 4 -> transactionHistory(storage);
 
-               case 5:{
-                   balance = transferFunds(storage,balance);
-                   break;
-               }
+               case 5 -> balance = transferFunds(storage, balance, accept);
 
-               case 6:{
-                   System.out.println("THANK YOU FOR USING SMARTBANK");
+               case 6 -> {
+                   System.out.println("THANK YOU FOR USING SMART-BANK");
                    System.out.println(" COME BACK AGAIN ");
-                   break;
                }
 
-               default:{
-                   System.out.println(" PLEASE ENTER A VALID INPUT ");
-               }
+               default -> System.out.println(" PLEASE ENTER A VALID INPUT ");
 
            }
 
@@ -310,10 +254,7 @@ public class SmartBank_Console {
     }
 
     // Login Process Account
-    public static void loginAccount(ArrayList<User> dataBank,ArrayList<transHistory> storage){
-
-        // Accepting User Input Into Variables
-        Scanner accept = new Scanner(System.in);
+    public static void loginAccount(ArrayList<User> dataBank,ArrayList<transHistory> storage,Scanner accept){
 
         // Variables
         String UserName,Password;
@@ -334,10 +275,10 @@ public class SmartBank_Console {
 
         // Using Try And Catch To Detect Errors
         try {
-            for ( User fank : dataBank ){
+            for ( User frank : dataBank ){
 
-                if ( UserName.equals(fank.UserName) && Password.equals(fank.Password)){
-                    bankingFeatures(storage);
+                if ( UserName.equals(frank.UserName) && Password.equals(frank.Password)){
+                    bankingFeatures(storage,accept);
                 }
 
                 else {
@@ -366,15 +307,12 @@ public class SmartBank_Console {
 
 
     // The Deposit Method For The Banking Features
-    public static double deposit( double balance,ArrayList<transHistory> storage ){
+    public static double deposit( double balance,ArrayList<transHistory> storage,Scanner accept ){
 
         // Deposit Variable
         double deposit;
         double add;
-        String type,dateNtime,acctNum,acctName;
-
-        // Accepting User Input
-        Scanner accept = new Scanner(System.in);
+        String type,date_time,acctNum,acctName;
 
         // Deposit UI
         System.out.println("------------------------------------------------");
@@ -396,7 +334,7 @@ public class SmartBank_Console {
         System.out.println();
 
         System.out.println("Enter Transaction Date(DD - MM - YY ) ");
-        dateNtime = accept.nextLine();
+        date_time = accept.nextLine();
         System.out.println();
 
         System.out.println("Enter Amount To Deposit ");
@@ -413,7 +351,7 @@ public class SmartBank_Console {
         System.out.println();
 
         // Adding The Accepted Elements To The Transaction History Storage
-        storage.add( new transHistory( type,dateNtime,acctNum,acctName,deposit ) );
+        storage.add( new transHistory( type,date_time,acctNum,acctName,deposit ) );
 
         return add;
 
@@ -423,15 +361,12 @@ public class SmartBank_Console {
 
 
     // The Withdrawal  Method For The Banking Features
-    public static double withdraw( double balance,ArrayList<transHistory> storage ){
+    public static double withdraw( double balance,ArrayList<transHistory> storage, Scanner accept ){
 
         // Withdraw Menu variable
         double withdraw;
         double total = 0;
-        String acctName,acctNum,type,dateNtime;
-
-        // Accepting User Input
-        Scanner accept = new Scanner(System.in);
+        String acctName,acctNum,type,date_time;
 
         // Withdraw Menu UI
         System.out.println("------------------------------------------------- ");
@@ -454,7 +389,7 @@ public class SmartBank_Console {
         System.out.println();
 
         System.out.println("Enter Transaction Date(DD - MM - YY ) ");
-        dateNtime = accept.nextLine();
+        date_time = accept.nextLine();
         System.out.println();
 
         System.out.println(" Please Enter Amount To Withdraw ");
@@ -477,7 +412,7 @@ public class SmartBank_Console {
             System.out.println();
 
             // Adding The Result To The Transaction History
-            storage.add( new transHistory( type,dateNtime,acctNum,acctName,withdraw ) );
+            storage.add( new transHistory( type,date_time,acctNum,acctName,withdraw ) );
 
         }
         else {
@@ -525,14 +460,11 @@ public class SmartBank_Console {
     }
 
     // Method For Transferring funds between two accounts
-    public static double transferFunds(ArrayList<transHistory> storage,double balance){
+    public static double transferFunds(ArrayList<transHistory> storage,double balance, Scanner input){
 
         // Declaring Variables
         String send,receive,sendName,receiveName,type,date_type;
         double amount,total = 0;
-
-        // Accepting User Input
-        Scanner input = new Scanner(System.in);
 
         System.out.println("----------------------------------------------------------------");
         System.out.println("                          TRANSFER FUNDS                        ");
@@ -612,19 +544,14 @@ public class SmartBank_Console {
     }
 
     // Method For The Admin Panel [ Separate Login ]
-    public static void adminPanel(ArrayList<User> dataBank){
+    public static void adminPanel(ArrayList<User> dataBank,Scanner input){
 
         // Declaring Variables
-        int option = 0;
-
-        // Accepting User Input
-        Scanner input = new Scanner(System.in);
+        int option;
 
        do{
 
-
           try {
-
 
               System.out.println("-------------------------------------------------------");
               System.out.println("             ADMIN PANEL [ SEPARATE LOGIN ]            ");
@@ -641,41 +568,18 @@ public class SmartBank_Console {
               System.out.println();
 
               // Using Switch Case To Determine User Input
-              switch (option){
+              switch (option) {
+                  case 1 -> viewCustomers(dataBank);
 
-                  case 1:{
-                      viewCustomers( dataBank);
-                      break;
+                  case 2 -> searchCustomer(dataBank, input);
 
-                  }
+                  case 3 -> deleteCustomer(dataBank, input);
 
-                  case 2:{
-                      searchCustomer(dataBank);
-                      break;
+                  case 4 -> System.out.println(" STATUS 404: FREEZE PENDING ");
 
-                  }
+                  case 5 -> System.out.println(" COME BACK NEXT TIME ");
 
-                  case 3:{
-                      deleteCustomer(dataBank);
-                      break;
-
-                  }
-
-                  case 4:{
-                      System.out.println(" STATUS 404: FREEZE PENDING ");
-                      break;
-
-                  }
-
-                  case 5:{
-                      System.out.println(" COME BACK NEXT TIME ");
-                      break;
-                  }
-
-                  default:{
-                      System.out.println(" PLEASE ENTER A VALID INPUT ");
-                      break;
-                  }
+                  default -> System.out.println(" PLEASE ENTER A VALID INPUT ");
 
               }
           }catch (Exception e){
@@ -691,13 +595,13 @@ public class SmartBank_Console {
     }
 
     // Method For View All Customers
-    public static void viewCustomers(ArrayList<User> databank){
+    public static void viewCustomers(ArrayList<User> data_bank){
         System.out.println("----------------------------------------------------------");
         System.out.println("                   VIEW ALL CUSTOMERS                     ");
         System.out.println("__________________________________________________________");
         System.out.println();
 
-        for( User storage : databank ){
+        for( User storage : data_bank ){
             System.out.println(" Personal Details: ");
             System.out.println("First Name    : " + storage.firstName);
             System.out.println("Last Name     : " + storage.lastName);
@@ -724,43 +628,41 @@ public class SmartBank_Console {
     }
 
     // Method For Searching For Customers
-    public static void searchCustomer(ArrayList<User> databank){
+    public static void searchCustomer(ArrayList<User> data_bank, Scanner input){
 
         String idNumber;
-
-        Scanner input = new Scanner(System.in);
 
         System.out.println("----------------------------------------------------");
         System.out.println("               SEARCH ALL CUSTOMER                  ");
         System.out.println("----------------------------------------------------");
         System.out.println();
 
-        // Customers Id Number
+        // Customer Identification Number
         System.out.println(" Enter Customer's id Number: ");
         idNumber = input.nextLine();
 
-        for( User searc : databank){
-              if (idNumber.equals(searc.idNUmber)){
+        for( User search : data_bank){
+              if (idNumber.equals(search.idNUmber)){
 
                   System.out.println("-----------------------------------------------");
                   System.out.println("                 CUSTOMER FOUND                ");
                   System.out.println("_______________________________________________");
                   System.out.println();
                   System.out.println(" Personal Details: ");
-                  System.out.println("First Name    : " + searc.firstName);
-                  System.out.println("Last Name     : " + searc.lastName);
-                  System.out.println("Date Of Birth : " + searc.dateOfBirth);
-                  System.out.println("ID Number     : " + searc.idNUmber);
+                  System.out.println("First Name    : " + search.firstName);
+                  System.out.println("Last Name     : " + search.lastName);
+                  System.out.println("Date Of Birth : " + search.dateOfBirth);
+                  System.out.println("ID Number     : " + search.idNUmber);
                   System.out.println();
 
                   System.out.println(" Bank Details: ");
-                  System.out.println("Email        : " + searc.email);
-                  System.out.println("Phone Number : " + searc.phoneNumber);
-                  System.out.println("Address      : " + searc.address);
-                  System.out.println("Occupation   : " + searc.occupation);
+                  System.out.println("Email        : " + search.email);
+                  System.out.println("Phone Number : " + search.phoneNumber);
+                  System.out.println("Address      : " + search.address);
+                  System.out.println("Occupation   : " + search.occupation);
 
                   System.out.println(" Account Balance: ");
-                  System.out.println(" Balance: " + searc.balance);
+                  System.out.println(" Balance: " + search.balance);
                   System.out.println("=====================================================");
                   System.out.println();
               }
@@ -778,23 +680,22 @@ public class SmartBank_Console {
     }
 
     // Method For Deleting Customer Account
-    public static void deleteCustomer(ArrayList<User> databank){
+    public static void deleteCustomer(ArrayList<User> data_bank, Scanner input){
         String idNumber;
 
-        Scanner input = new Scanner(System.in);
         System.out.println("---------------------------------------------------------");
         System.out.println("               DELETE CUSTOMER ACCOUNT                   ");
         System.out.println("_________________________________________________________");
         System.out.println();
         System.out.println(" Enter Customer Id Number: ");
         idNumber = input.nextLine();
-        for ( User stick : databank){
+        for ( User stick : data_bank){
                if (idNumber.equalsIgnoreCase(stick.idNUmber)){
                    System.out.println("--------------------------------------------");
                    System.out.println("         CUSTOMER DELETION COMPLETED        ");
                    System.out.println("____________________________________________");
                    System.out.println("Deletes All Customers For Now ");
-                   databank.clear();
+                   data_bank.clear();
 
                }
         }
