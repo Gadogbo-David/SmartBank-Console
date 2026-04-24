@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 //  SmartBank Java Console Application
 public class SmartBank_Console {
-
     public static void main( String[] args){
 
         // Declaring Variables
@@ -93,91 +92,7 @@ public class SmartBank_Console {
 
                  // Using Switch Case to check the option
                  switch (option) {
-                     case 1 -> {
-
-                         // Variables For The New Account Creation
-                         String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber, Password, UserName;
-                         double balance;
-
-                         // New Account UI
-                         System.out.println();
-                         System.out.println("----------------------------------------------");
-                         System.out.println("              New Account Creation            ");
-                         System.out.println("______________________________________________");
-                         System.out.println();
-
-                         // Accepting First Name
-                         System.out.println(" Enter First Name ");
-                         firstName = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Last Name
-                         System.out.println(" Enter Last Name ");
-                         lastName = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting UserName
-                         System.out.println(" Create UserName: ");
-                         UserName = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Date Of Birth
-                         System.out.println(" Enter Date Of Birth [DD / MM / YY ] ");
-                         dateOfBirth = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Email
-                         System.out.println(" Enter Your Email ");
-                         email = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Occupation
-                         System.out.println(" Enter Your Occupation ");
-                         occupation = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Address
-                         System.out.println(" Enter Address [ REGION - CITY ] ");
-                         address = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Phone Number
-                         System.out.println(" Enter Phone Number [ +233 ****** ] ");
-                         phoneNumber = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting ID Number
-                         System.out.println(" Enter Id Number ");
-                         idNUmber = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Password
-                         System.out.println(" Enter New Password: ");
-                         Password = accept.nextLine();
-                         System.out.println();
-
-                         // Accepting Initial Deposit
-                         System.out.println(" Enter Minimal Deposit Amount ");
-
-                         try {
-                             balance = accept.nextDouble();
-                             System.out.println();
-                         } catch (Exception e) {
-                             System.out.println("STATUS 404: ERROR MESSAGE " + e);
-                             System.out.println("Please Enter A Valid Number ");
-                             accept.nextDouble();
-                             balance = 0;
-
-                         }
-
-
-                         System.out.println("-----------------------------------------------------");
-                         System.out.println("           ** Account Creation Completed **          ");
-                         System.out.println("_____________________________________________________");
-                         System.out.println();
-
-                         dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber, balance, Password, UserName));
-                     }
+                     case 1 -> createAccount(dataBank,accept);
                      case 2 -> loginAccount(dataBank, storage, accept);
 
                      case 3 -> System.out.println(" STATUS 404:  EXITED COMPLETED ");
@@ -201,6 +116,96 @@ public class SmartBank_Console {
 
    }
 
+   // Create New Account
+    public static void createAccount(ArrayList<User> dataBank, Scanner accept){
+
+
+        // Variables For The New Account Creation
+        String firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber, Password, UserName;
+        double balance;
+
+        // New Account UI
+        System.out.println();
+        System.out.println("----------------------------------------------");
+        System.out.println("              New Account Creation            ");
+        System.out.println("______________________________________________");
+        System.out.println();
+
+        // Accepting First Name
+        System.out.println(" Enter First Name ");
+        firstName = accept.nextLine();
+        System.out.println();
+
+        // Accepting Last Name
+        System.out.println(" Enter Last Name ");
+        lastName = accept.nextLine();
+        System.out.println();
+
+        // Accepting UserName
+        System.out.println(" Create UserName: ");
+        UserName = accept.nextLine();
+        System.out.println();
+
+        // Accepting Date Of Birth
+        System.out.println(" Enter Date Of Birth [DD / MM / YY ] ");
+        dateOfBirth = accept.nextLine();
+        System.out.println();
+
+        // Accepting Email
+        System.out.println(" Enter Your Email ");
+        email = accept.nextLine();
+        System.out.println();
+
+        // Accepting Occupation
+        System.out.println(" Enter Your Occupation ");
+        occupation = accept.nextLine();
+        System.out.println();
+
+        // Accepting Address
+        System.out.println(" Enter Address [ REGION - CITY ] ");
+        address = accept.nextLine();
+        System.out.println();
+
+        // Accepting Phone Number
+        System.out.println(" Enter Phone Number [ +233 ****** ] ");
+        phoneNumber = accept.nextLine();
+        System.out.println();
+
+        // Accepting ID Number
+        System.out.println(" Enter Id Number ");
+        idNUmber = accept.nextLine();
+        System.out.println();
+
+        // Accepting Password
+        System.out.println(" Enter New Password: ");
+        Password = accept.nextLine();
+        System.out.println();
+
+        // Accepting Initial Deposit
+        System.out.println(" Enter Minimal Deposit Amount ");
+
+        try {
+            balance = accept.nextDouble();
+            System.out.println();
+        } catch (Exception e) {
+            System.out.println("STATUS 404: ERROR MESSAGE " + e);
+            System.out.println("Please Enter A Valid Number ");
+            accept.nextDouble();
+            balance = 0;
+
+        }
+
+
+        System.out.println("-----------------------------------------------------");
+        System.out.println("           ** Account Creation Completed **          ");
+        System.out.println("_____________________________________________________");
+        System.out.println();
+
+        dataBank.add(new User(firstName, lastName, dateOfBirth, email, occupation, address, phoneNumber, idNUmber, balance, Password, UserName));
+
+
+
+    }
    // Banking Features Method
     public static void bankingFeatures( ArrayList<transHistory> storage, Scanner accept){
 
