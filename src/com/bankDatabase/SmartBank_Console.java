@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 //  SmartBank Java Console Application
 public class SmartBank_Console {
+     static User currentUser = null;
+
     public static void main( String[] args){
 
         // Declaring Variables
@@ -93,7 +95,12 @@ public class SmartBank_Console {
                  // Using Switch Case to check the option
                  switch (option) {
                      case 1 -> createAccount(dataBank,accept);
-                     case 2 -> loginAccount(dataBank, storage, accept);
+                     case 2 -> {
+                         currentUser = loginAccount(dataBank,accept);
+                         if (currentUser != null){
+                             bankingFeatures(currentUser,dataBank,storage,accept);
+                         }
+                     }
 
                      case 3 -> System.out.println(" STATUS 404:  EXITED COMPLETED ");
 
@@ -207,16 +214,18 @@ public class SmartBank_Console {
 
     }
    // Banking Features Method
-    public static void bankingFeatures( ArrayList<transHistory> storage, Scanner accept){
+    public static void bankingFeatures( User user,ArrayList<User> dataBank,ArrayList<transHistory> storage, Scanner accept){
 
         // Variable Selection
         int Option;
-        double balance = 0;
+
 
         // Using do while loop until the user Exits
        do{
 
            // The Banking Features UI
+           System.out.println("Welcome " + user.UserName);
+           System.out.println();
            System.out.println("--------------------------------------------------");
            System.out.println(" ***            BANKING FEATURES              *** ");
            System.out.println("__________________________________________________");
@@ -236,15 +245,15 @@ public class SmartBank_Console {
 
            // Using Switch Case To Determine Each User Input
            switch (Option) {
-               case 1 -> balance = deposit(balance, storage, accept);
+               case 1 ->  deposit(user, storage, accept);
 
-               case 2 -> balance = withdraw(balance, storage, accept);
+               case 2 -> withdraw(user, storage, accept);
 
-               case 3 -> balance = checkBalance(balance);
+               case 3 -> System.out.println("BALANCE: GH$ "+ user.balance);
 
                case 4 -> transactionHistory(storage);
 
-               case 5 -> balance = transferFunds(storage, balance, accept);
+               case 5 ->  transferFunds(storage,currentUser,dataBank,accept);
 
                case 6 -> {
                    System.out.println("THANK YOU FOR USING SMART-BANK");
@@ -259,7 +268,7 @@ public class SmartBank_Console {
     }
 
     // Login Process Account
-    public static void loginAccount(ArrayList<User> dataBank,ArrayList<transHistory> storage,Scanner accept){
+    public static User loginAccount(ArrayList<User> dataBank,Scanner accept){
 
         // Variables
         String UserName,Password;
@@ -283,7 +292,8 @@ public class SmartBank_Console {
             for ( User frank : dataBank ){
 
                 if ( UserName.equals(frank.UserName) && Password.equals(frank.Password)){
-                    bankingFeatures(storage,accept);
+                    System.out.println("Login Success");
+                    return frank;
                 }
 
                 else {
@@ -298,26 +308,17 @@ public class SmartBank_Console {
         catch ( Exception e){
             System.out.println(" STATUS 404 : " + e);
 
-            System.out.println(" Enter A Valid Username: ");
-            accept.nextLine();
-            UserName = accept.nextLine();
-
-            System.out.println(" Enter User Password: ");
-            accept.nextLine();
-            Password = accept.nextLine();
-
         }
-
+      return null;
     }
 
 
     // The Deposit Method For The Banking Features
-    public static double deposit( double balance,ArrayList<transHistory> storage,Scanner accept ){
+    public static void deposit( User user,ArrayList<transHistory> storage,Scanner accept ){
 
         // Deposit Variable
         double deposit;
-        double add;
-        String type,date_time,acctNum,acctName;
+        String type,date_time,acctName;
 
         // Deposit UI
         System.out.println("------------------------------------------------");
@@ -326,13 +327,10 @@ public class SmartBank_Console {
         System.out.println();
 
         // Accepting User Input
-        System.out.println("Enter Account Name: ");
+        System.out.println("Enter UserName: ");
         acctName = accept.nextLine();
         System.out.println();
 
-        System.out.println("Enter Account Number: ");
-        acctNum = accept.nextLine();
-        System.out.println();
 
         System.out.println("Enter Transaction Type: ");
         type = accept.nextLine();
@@ -347,31 +345,26 @@ public class SmartBank_Console {
         System.out.println();
 
         // Adding to balance
-       add = deposit + balance;
+       user.balance += deposit;
 
 
        // Declaring Deposit Status
         System.out.println("GH$ " + deposit + " Has Been Deposited Successfully ");
-        System.out.println("Balance = GH$ " + add);
+        System.out.println("Balance = GH$ " + user.balance);
         System.out.println();
 
         // Adding The Accepted Elements To The Transaction History Storage
-        storage.add( new transHistory( type,date_time,acctNum,acctName,deposit ) );
-
-        return add;
-
-
+        storage.add( new transHistory( type,date_time,acctName,deposit ) );
 
     }
 
 
     // The Withdrawal  Method For The Banking Features
-    public static double withdraw( double balance,ArrayList<transHistory> storage, Scanner accept ){
+    public static void withdraw( User user,ArrayList<transHistory> storage, Scanner accept ){
 
         // Withdraw Menu variable
         double withdraw;
-        double total = 0;
-        String acctName,acctNum,type,date_time;
+        String acctName,type,date_time;
 
         // Withdraw Menu UI
         System.out.println("------------------------------------------------- ");
@@ -381,12 +374,8 @@ public class SmartBank_Console {
 
         // Accepting User Input
 
-        System.out.println("Enter Account Name: ");
+        System.out.println("Enter UserName: ");
         acctName = accept.nextLine();
-        System.out.println();
-
-        System.out.println("Enter Account Number: ");
-        acctNum = accept.nextLine();
         System.out.println();
 
         System.out.println("Enter Transaction Type: ");
@@ -402,22 +391,22 @@ public class SmartBank_Console {
         System.out.println();
 
         // Using If Statements To Determine Correct Cases
-        if ( withdraw > balance ){
+        if ( withdraw > user.balance ){
             System.out.println(" Insufficient Funds !!! ");
             System.out.println(" Please Deposit To Be Able To Withdraw ");
             System.out.println();
 
         }
-        else if ( withdraw < balance ) {
+        else if ( withdraw < user.balance ) {
 
-            total = balance - withdraw;
+            user.balance -= withdraw;
             System.out.println(" The Amount Of GH$ " + withdraw + " Has Been Completed....");
             System.out.println(" Withdraw done Successfully... ");
-            System.out.println(" Balance is GH$ " + total);
+            System.out.println(" Balance is GH$ " + user.balance);
             System.out.println();
 
             // Adding The Result To The Transaction History
-            storage.add( new transHistory( type,date_time,acctNum,acctName,withdraw ) );
+            storage.add( new transHistory( type,date_time,acctName,withdraw ) );
 
         }
         else {
@@ -426,21 +415,8 @@ public class SmartBank_Console {
             System.out.println();
         }
 
-        return total;
     }
 
-
-    // Method For Check Balance For Banking Features
-    public static double checkBalance(double balance){
-        System.out.println("---------------------------------------------");
-        System.out.println("                    BALANCE                  ");
-        System.out.println("_____________________________________________");
-        System.out.println();
-        System.out.println(" Your Balance Is GH$ "+ balance);
-        System.out.println();
-
-        return balance;
-    }
 
     // Method For Viewing Transaction History
     public static void transactionHistory(ArrayList<transHistory> storage){
@@ -453,7 +429,6 @@ public class SmartBank_Console {
         // Looping through the elements to be able to display them nicely
         for ( transHistory dataBase: storage ){
             System.out.println("Account Name: " + dataBase.acctName);
-            System.out.println("Account Number: " + dataBase.acctNumber);
             System.out.println("Transaction Type: " + dataBase.transactionType);
             System.out.println("Date Of Transaction: " + dataBase.dateNtime);
             System.out.println("Amount: " + dataBase.amount);
@@ -465,11 +440,11 @@ public class SmartBank_Console {
     }
 
     // Method For Transferring funds between two accounts
-    public static double transferFunds(ArrayList<transHistory> storage,double balance, Scanner input){
+    public static void transferFunds(ArrayList<transHistory> storage,User sender,ArrayList<User> dataBank, Scanner input){
 
         // Declaring Variables
-        String send,receive,sendName,receiveName,type,date_type;
-        double amount,total = 0;
+        String sendName,type,date_type;
+        double amount;
 
         System.out.println("----------------------------------------------------------------");
         System.out.println("                          TRANSFER FUNDS                        ");
@@ -477,24 +452,21 @@ public class SmartBank_Console {
         System.out.println();
 
         // Accepting Senders Account Name
-        System.out.println(" Enter Sender's Account Name ");
+        System.out.println(" Enter Receiver's UserName ");
         sendName = input.nextLine();
-        System.out.println();
 
-        // Accepting Senders Account Number
-        System.out.println(" Enter Sender's Account Number ");
-        send = input.nextLine();
-        System.out.println();
+        User receiver = null;
+        for (User u : dataBank){
+            if (u.UserName.equalsIgnoreCase(sendName)){
+                receiver = u;
+                break;
+            }
+        }
 
-        // Accepting Receivers Account Name
-        System.out.println(" Enter Receiver's Account Name ");
-        receiveName = input.nextLine();
-        System.out.println();
-
-        // Accepting Receivers Account Number
-        System.out.println(" Enter Receiver's Account Number ");
-        receive = input.nextLine();
-        System.out.println();
+        if (receiver == null){
+            System.out.println(" USER NOT FOUND");
+            return;
+        }
 
         // Type Of Transaction
         System.out.println(" Enter Transaction Type ");
@@ -512,39 +484,28 @@ public class SmartBank_Console {
         System.out.println();
 
         // Using If Statements To Check For The Actual Error
-        if( amount > balance ){
-            System.out.println("PENDING STATUS: 404 ");
+        if( amount > sender.balance ){
             System.out.println("INSUFFICIENT BALANCE ");
             System.out.println();
         }
 
-        else if ( amount < balance ) {
+        else if ( amount < sender.balance ) {
             System.out.println("TRANSFER SUCCESSFUL ");
             System.out.println("Amount of GHC " + amount + " Has Been Transferred From: " );
-            System.out.println(" Sender's Account Name: " + sendName);
-            System.out.println(" Sender's Account Number: " + send);
+            System.out.println(" Sender's Account Name: " + sender.UserName);
             System.out.println();
 
-            System.out.println("TRANSFER RECEIVED ");
-            System.out.println("Amount Of GHC "+ amount + " Has Been Received From: ");
-            System.out.println(" Receiver's Account Name: "+ receiveName);
-            System.out.println(" Receiver's Account Number: "+ receive);
-            System.out.println();
-
-            total = balance - amount;
-            System.out.println(" Balance: GHC " +total );
+            sender.balance -= amount;
+            receiver.balance += amount;
 
         }
 
         else{
-            System.out.println("PENDING STATUS: 404 ");
             System.out.println(" PLEASE ENTER A VALID AMOUNT ");
             System.out.println();
         }
 
-        storage.add(new transHistory( type,date_type,send,sendName,amount ));
-
-        return total;
+        storage.add(new transHistory( type,date_type,sendName,amount ));
 
     }
 
